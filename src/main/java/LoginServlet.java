@@ -16,7 +16,10 @@ public class LoginServlet extends HttpServlet {
         // Define the regex pattern for the username
         String usernamePattern = "^[A-Z]\\w{2,}$";
 
-        if (username.matches(usernamePattern) && password.equals("password")) {
+        // Define the regex pattern for the password
+        String passwordPattern = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=]).{8,}$";
+
+        if (username.matches(usernamePattern) && password.matches(passwordPattern)) {
             response.sendRedirect("LoginSuccess.jsp");
         } else {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Login.html");
