@@ -1,4 +1,3 @@
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,13 +13,16 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("user");
         String password = request.getParameter("password");
 
-        if(username.equals("admin") && password.equals("password")){
+        // Define the regex pattern for the username
+        String usernamePattern = "^[A-Z]\\w{2,}$";
+
+        if (username.matches(usernamePattern) && password.equals("password")) {
             response.sendRedirect("LoginSuccess.jsp");
-        }else {
+        } else {
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/Login.html");
             PrintWriter out = response.getWriter();
             out.println("<font color=red>Incorrect Credential</font>");
-            requestDispatcher.include(request,response);
+            requestDispatcher.include(request, response);
         }
     }
 }
